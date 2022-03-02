@@ -1,62 +1,114 @@
 let screen = document.getElementById("screen");
 let buttons = document.querySelectorAll("button");
-// console.log(buttons);
-screenvalue = ''
-for (item of buttons) {
-    // console.log(item.innerHTML);
+let screenvalue = '';
+for (let item of buttons) {
 
 
-    item.addEventListener('click', (item) => {
-        buttonText = item.target.innerText;
+
+    item.addEventListener('click', (e) => {
+        let buttonText = e.target.innerText;
         if (buttonText == 'C') {
             screenvalue = '';
-            screen.value = screenvalue
+            screen.value = screenvalue;
         }
-        else if(buttonText=='Del') {
-            if (screenvalue=='') {
-                screenvalue='';
+        else if (buttonText == 'Del') {
+            if (screenvalue == '') {
+                screenvalue = '';
             } else {
-                l=screenvalue.length
-                screenvalue=screenvalue.slice(0,l-1);
-                screen.value=screenvalue;
+                l = screenvalue.length
+                screenvalue = screenvalue.slice(0, l - 1);
+                screen.value = screenvalue;
             }
 
         }
         else if (buttonText == '=') {
-            l = screenvalue.length
-            num1 = ''
-            for (i = 0; i < l; i++) {
-                if (screenvalue[i] == '+' || screenvalue[i] == '-' || screenvalue[i] == '*' || screenvalue[i] == '/' || screenvalue[i] == '%') {
-                    operator=screenvalue[i];
-                    num2=Number(screenvalue.slice(i,l));
-                    break;
+            
+            let s = screenvalue;
+            let number = [];
+            let operator = [];
+            let num = s[0];
+            let flag = 0;
+            let len = s.length;
+
+            for (let i = 1; i < len - 1; i++) {
+                if (s[i] === '+' || s[i] === '-' || s[i] === '*' || s[i] === '/' || s[i] === '%') {
+                    if (s[i + 1] === '+' || s[i + 1] === '-' || s[i + 1] === '*' || s[i + 1] === '/' || s[i + 1] === '%') {
+                        screen.value = "Invalid Input";
+                        screenvalue = "";
+                        flag = 1;
+                        break;
+                    } else {
+                        number.push(Number(num));
+                        operator.push(s[i]);
+                        num = "";
+
+                    }
+
                 } else {
-                    num1+=screenvalue[i];
+                    num += s[i];
                 }
             }
-            num1=Number(num1);
-            // console.log(num1)
-            // console.log(operator)
-            // console.log(num2)
-            switch(operator) {
-                case '+':
-                    screen.value=num1+num2;
-                    break;
-                case '-':
-                    screen.value=num1-num2;
-                    break;
-                case '*':
-                    screen.value=num1*num2;
-                    break;
-                case '/':
-                    screen.value=num1/num2;
-                    break;
-                case '%':
-                    screen.value=num1%num2;
-                    break;
-                default:
-                    screen.value='Invalid choice';
+            if (s[len - 1] === '+' || s[len - 1] === '-' || s[len - 1] === '*' || s[len - 1] === '/' || s[len - 1] === '%') {
+                flag=1;
+                screen.value="Invalid Input";
+                screenvalue="";
+            } else {
+                num+=s[len-1];
+
             }
+            if (flag === 0) {
+                number.push(Number(num));
+
+
+                
+                let ans = "";
+                if (operator[0] === '+') {
+                    ans = number[0] + number[1];
+                }
+                else if (operator[0] === '-') {
+                    ans = number[0] - number[1];
+                }
+                else if (operator[0] === '*') {
+                    ans = number[0] * number[1];
+                } else {
+                    ans = number[0] / number[1];
+                }
+
+                for (let i = 2; i < number.length; i++) {
+
+
+                    switch (operator[i - 1]) {
+                        case '+':
+                            ans = ans + number[i];
+
+                            break;
+                        case '-':
+                            ans = ans - number[i];
+
+                            break;
+                        case '*':
+                            ans = ans * number[i];
+
+                            break;
+                        case '/':
+                            ans = ans / number[i];
+
+                            break;
+                        case '%':
+                            ans = ans % number[i];
+
+                            break;
+                        default:
+                            console.log(operator[i - 1]);
+
+
+                    }
+
+                }
+                screen.value = ans;
+            }
+
+
 
         } else {
             screenvalue += buttonText
