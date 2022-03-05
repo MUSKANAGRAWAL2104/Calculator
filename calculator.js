@@ -61,51 +61,72 @@ for (let item of buttons) {
 
 
                 
-                let ans = "";
-                if (operator[0] === '+') {
-                    ans = number[0] + number[1];
-                }
-                else if (operator[0] === '-') {
-                    ans = number[0] - number[1];
-                }
-                else if (operator[0] === '*') {
-                    ans = number[0] * number[1];
+                let i=0;
+            while(i<operator.length) {
+                if (operator[i]==='/') {
+                    number[i]=number[i]/number[i+1];
+                    number.splice(i+1,1);
+                    operator.splice(i,1);
+                   
+
                 } else {
-                    ans = number[0] / number[1];
+                    i+=1;
+                   
                 }
-
-                for (let i = 2; i < number.length; i++) {
-
-
-                    switch (operator[i - 1]) {
-                        case '+':
-                            ans = ans + number[i];
-
-                            break;
-                        case '-':
-                            ans = ans - number[i];
-
-                            break;
-                        case '*':
-                            ans = ans * number[i];
-
-                            break;
-                        case '/':
-                            ans = ans / number[i];
-
-                            break;
-                        case '%':
-                            ans = ans % number[i];
-
-                            break;
-                        default:
-                            console.log(operator[i - 1]);
+            }
 
 
-                    }
+
+
+
+
+
+
+
+
+            i=0;
+            while(i<operator.length) {
+                if (operator[i]==='*') {
+                    number[i]=number[i]*number[i+1];
+                    number.splice(i+1,1);
+                    operator.splice(i,1);
+                   
+
+
+                } else {
+                    i+=1;
+                    
 
                 }
-                screen.value = ans;
+            }
+            i=0;
+            while(i<operator.length) {
+                if (operator[i]==='+') {
+                    number[i]=number[i]+number[i+1];
+                    number.splice(i+1,1);
+                    operator.splice(i,1);
+                    
+
+
+                } else {
+                    i+=1;
+                    
+                }
+            }
+            i=0;
+            while(i<operator.length) {
+                if (operator[i]==='-') {
+                    number[i]=number[i]-number[i+1];
+                    number.splice(i+1,1);
+                    operator.splice(i,1);
+                    
+
+                } else {
+                    i+=1;
+                    
+                }
+            }
+                screen.value = number[0];
             }
 
 
