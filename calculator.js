@@ -29,10 +29,28 @@ for (let item of buttons) {
             let num = s[0];
             let flag = 0;
             let len = s.length;
+            let c=0;
+            if (s[0]==='+') {
+                num="";
+            }
+            else if (s[0]==='-') {
+                num+=s[0];
+                if (s[1] === '+' || s[1] === '-' || s[1] === 'X' || s[1] === '/' || s[1] === '%' || s[1]==='.') {
+                    screen.value="Invalid Input";
+                    screenvalue="";
+                    flag=1;
+                }
 
-            for (let i = 1; i < len - 1; i++) {
-                if (s[i] === '+' || s[i] === '-' || s[i] === '*' || s[i] === '/' || s[i] === '%') {
-                    if (s[i + 1] === '+' || s[i + 1] === '-' || s[i + 1] === '*' || s[i + 1] === '/' || s[i + 1] === '%') {
+            }
+            else if (s[0] === 'X' || s[0] === '/' || s[0] === '%' || s[0] === '.' ) {
+                screen.value="Invalid Input";
+                screenvalue="";
+                flag=1;
+            }
+
+            for (let i = 1; i < len; i++) {
+                if (s[i] === '+' || s[i] === '-' || s[i] === 'X' || s[i] === '/' || s[i] === '%') {
+                    if (s[i + 1] === '+' || s[i + 1] === '-' || s[i + 1] === 'X' || s[i + 1] === '/' || s[i + 1] === '%' || s[i+1]==='.') {
                         screen.value = "Invalid Input";
                         screenvalue = "";
                         flag = 1;
@@ -41,21 +59,27 @@ for (let item of buttons) {
                         number.push(Number(num));
                         operator.push(s[i]);
                         num = "";
+                        c=0;
 
                     }
 
                 } else {
+                    if (s[i]==='.') {
+                        c+=1;
+                        if (c>1) {
+                            flag=1;
+                            screen.value="Invalid Input";
+                            screeenvalue= "";
+                        }
+                    }
                     num += s[i];
                 }
             }
-            if (s[len - 1] === '+' || s[len - 1] === '-' || s[len - 1] === '*' || s[len - 1] === '/' || s[len - 1] === '%') {
+            if (s[len - 1] === '+' || s[len - 1] === '-' || s[len - 1] === 'X' || s[len - 1] === '/' || s[len - 1] === '%' || s[len-1]==='.') {
                 flag=1;
                 screen.value="Invalid Input";
                 screenvalue="";
-            } else {
-                num+=s[len-1];
-
-            }
+            } 
             if (flag === 0) {
                 number.push(Number(num));
 
@@ -86,7 +110,7 @@ for (let item of buttons) {
 
             i=0;
             while(i<operator.length) {
-                if (operator[i]==='*') {
+                if (operator[i]==='X') {
                     number[i]=number[i]*number[i+1];
                     number.splice(i+1,1);
                     operator.splice(i,1);
@@ -126,8 +150,11 @@ for (let item of buttons) {
                     
                 }
             }
-                screen.value = number[0];
+            screenvalue=" ";
+            screen.value = number[0];
+            
             }
+            
 
 
 

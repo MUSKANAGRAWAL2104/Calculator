@@ -1,0 +1,26 @@
+1. User cannot give operator before number except the minus and plus operators.
+Ex- *5+4=  "INVALID"
+    /4-5=  "INVALID"
+    -4+3*1=  "VALID"
+    +6-8/4=  "VALID"
+2. There can be only one operator between two numbers or in other words there should be a number between two operators.
+Ex- -+8=  "INVALID"
+    3+8*/4= "INVALID"
+    7+2/6=  "VALID"
+3. There must be any number after the operator.
+Ex-  +=  "INVALID"
+     -45+/= "INVALID"
+     4+3/7*= "INVALID"
+4. If there is no operator then answer will be the number itself.
+Ex- 7= "7"
+    42= "42"
+5. Decimal must be placed between the number not before or after.
+Ex- .-5= "INVALID"
+    -.5= "INVALID"
+    5+3.= "INVALID"
+    5-.5= "INVALID"
+    -5.6+7.0*0.3= "VALID"
+6. There cannot be more than one decimal in a number.
+Ex. 5.8.3= "INVALID"
+    9+2.5.35= "INVALID"
+    7.8-3= "VALID"
