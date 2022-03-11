@@ -1,0 +1,5 @@
+Use case of Callback {
+
+When you have an asychronous function and you want to call another function after the execution of that function than we can use callback function.
+
+}

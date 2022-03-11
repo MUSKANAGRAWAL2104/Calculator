@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        This is not a container.
+    </div>
+    <script>
+        function fun1() {
+            return new Promise(function (resolve,reject) {
+                setTimeout(() => {
+                    // resolve();
+                    // reject();
+                    // resolve();
+                }, 1000);
+            });
+            fun1().then(function () {
+            console.log("Resolved");
+        }).catch(function () {
+            console.log("Rejected");
+        });
+        };
+        
+        
+
+        function fun1() {
+            return new Promise(function (resolve, reject) {
+                setTimeout(() => {
+                   let error=true;
+                   if(!error) {
+                       reject();
+                   } else {
+                       resolve();
+                   }
+                }, 1000);
+            });
+        };
+        fun1().then(function () {
+            console.log("Resolved");
+        }).catch(function () {
+            console.log("Rejected");
+        });
+
+
+
+
+        Promise Using Callback
+
+        function resolve() {
+            console.log("Resolved");
+        }
+
+        
+        function reject() {
+            console.log("Rejected");
+        }
+
+        function Promise(fulfill,not_fulfill) {
+            console.log("Promise Pending")
+            setTimeout(() => {
+                let error = true;
+                if (typeof(not_fulfill)=== "undefined") {
+                    fulfill();
+                }
+                else if (!error && typeof (fulfill) !== "function" ) {
+                    not_fulfill();
+                }
+                else if (!error || typeof (not_fulfill) !== "function" ) {
+                    fulfill();
+                } else {
+                    not_fulfill();
+                }
+            }, 5000);
+        };
+
+        Promise(resolve,reject);
+
+
+    </script>
+</body>
+
+</html>
